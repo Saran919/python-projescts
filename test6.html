@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pallothu Rama Rao</title>
+    <style>
+        .collapsible {
+            background-color: #f1f1f1;
+            color: #444;
+            cursor: pointer;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 15px;
+            margin-top: 5px;
+        }
+
+        .collapsible:after {
+            content: '\002B';
+            font-size: 13px;
+            color: #777;
+            float: right;
+            margin-left: 5px;
+        }
+
+        .active:after {
+            content: "\2212";
+        }
+
+        .content {
+            padding: 0 18px;
+            display: none;
+            overflow: hidden;
+            background-color: #f9f9f9;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<marquee behavior="slide" direction="left"></marquee><h2>Pallothu Rama Rao</h2>
+
+<button type="button" class="collapsible">+</button>
+<div class="content">
+    <button type="button" class="collapsible">Grandfather</button>
+    <div class="content">
+        <p>Details about Grandfather.</p>
+    </div>
+    <button type="button" class="collapsible">Grandmother</button>
+    <div class="content">
+        <p>Details about Grandmother.</p>
+    </div>
+</div>
+
+<button type="button" class="collapsible">+</button>
+<div class="content">
+    <button type="button" class="collapsible">murali krishna</button>
+    <div class="content">
+        <p>Details about Father.</p>
+        <button type="button" class="collapsible">Father's Siblings</button>
+        <div class="content">
+            <p>Details about Father's Siblings.</p>
+        </div>
+    </div>
+    <button type="button" class="collapsible">sri devi</button>
+    <div class="content">
+        <p>Details about Mother.</p>
+        <button type="button" class="collapsible">Mother's Siblings</button>
+        <div class="content">
+            <p>Details about Mother's Siblings.</p>
+        </div>
+    </div>
+</div>
+
+<button type="button" class="collapsible">+</button>
+<div class="content">
+    <button type="button" class="collapsible">chintu</button>
+    <div class="content">
+        <p>Details about Child 1.</p>
+    </div>
+    <button type="button" class="collapsible">sidhu</button>
+    <div class="content">
+        <p>Details about Child 2.</p>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var coll = document.getElementsByClassName("collapsible");
+        for (var i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                } else {
+                    content.style.display = "block";
+                }
+            });
+        }
+    });
+</script>
+<form id="infoForm" action="/saransubmit1" method="post">
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html>

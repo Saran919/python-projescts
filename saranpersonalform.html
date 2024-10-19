@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saran Personal Form</title>
+    <style>
+        form {
+            max-width: 400px;
+            margin: auto;
+            padding: 1em;
+            border: 1px solid #ccc;
+            border-radius: 1em;
+        }
+        div {
+            margin-bottom: 1em;
+        }
+        label {
+            margin-bottom: .5em;
+            color: #333333;
+            display: block;
+        }
+        input, button {
+            border: 1px solid #ccc;
+            padding: .5em;
+            font-size: 1em;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        button {
+            width: 50%;
+        }
+        .error {
+            color: red;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <form id="infoForm" action="http://127.0.0.1:5000/saransubmit" method="post">
+        <div>
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" name="firstName" pattern="[A-Za-z]+"required>
+        </div>
+        <div>
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="lastName" pattern="[A-Za-z]+"required>
+        </div>
+        <div>
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+            <span class="error" id="emailError"></span>
+        </div>
+        <div>
+            <label>Select Your Age Range</label>
+            <label for="age1"><input type="checkbox" id="age1" name="age" value="Under 18"> Under 18</label>
+            <label for="age2"><input type="checkbox" id="age2" name="age" value="18-30"> 18-30</label>
+            <label for="age3"><input type="checkbox" id="age3" name="age" value="30-50"> 30-50</label>
+            <label for="age4"><input type="checkbox" id="age4" name="age" value="50-70"> 50-70</label>
+        </div>
+        <div>
+            <label>Favorite Fruit</label>
+            <label for="fruit1"><input type="checkbox" id="fruit1" name="fruit" value="Apple"> Apple</label>
+            <label for="fruit2"><input type="checkbox" id="fruit2" name="fruit" value="Banana"> Banana</label>
+            <label for="fruit3"><input type="checkbox" id="fruit3" name="fruit" value="Mango"> Mango</label>
+            <label for="fruit4"><input type="checkbox" id="fruit4" name="fruit" value="Sapota"> Sapota</label>
+        </div>
+        <div>
+            <label for="terms">
+                <input type="checkbox" id="terms" name="terms" required> I agree to the terms and conditions
+            </label>
+        </div>
+        <div>
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+
+    <script>
+        document.getElementById('infoForm').addEventListener('submit', function(event) {
+            let valid = true;
+            document.getElementById('emailError').textContent = '';
+
+            let email = document.getElementById('email').value;
+            if (!email) {
+                document.getElementById('emailError').textContent = 'Email is required';
+                valid = false;
+            } else {
+                let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailPattern.test(email)) {
+                    document.getElementById('emailError').textContent = 'Invalid email format';
+                    valid = false;
+                }
+            }
+            if (!valid) {
+                event.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>

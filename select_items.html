@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Box Example</title>
+    <style>
+        select {
+            width: 150px;
+            height: 200px;
+        }
+        .container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Move Items Between Select Boxes</h2>
+
+    <div class="container">
+        <!-- Available items -->
+        <select id="availableItems" multiple>
+            <option value="item1">Item 1</option>
+            <option value="item2">Item 2</option>
+            <option value="item3">Item 3</option>
+            <option value="item4">Item 4</option>
+        </select>
+
+        <!-- Buttons to move items -->
+        <div class="buttons">
+            <button onclick="moveToSelected()"> &gt;&gt; </button>
+            <button onclick="moveToAvailable()"> &lt;&lt; </button>
+        </div>
+
+        <!-- Selected items -->
+        <select id="selectedItems" multiple>
+        </select>
+    </div>
+
+    <script>
+        // Move selected item(s) from available to selected
+        function moveToSelected() {
+            const available = document.getElementById("availableItems");
+            const selected = document.getElementById("selectedItems");
+            moveItems(available, selected); 
+        }
+
+        // Move selected item(s) from selected to available
+        function moveToAvailable() {
+            const available = document.getElementById("selectedItems");
+            const selected = document.getElementById("availableItems");
+            moveItems(available, selected);
+        }
+
+        // Helper function to move selected options between select boxes
+        function moveItems(fromSelect, toSelect) {
+            const selectedOptions = Array.from(fromSelect.selectedOptions);
+            selectedOptions.forEach(option => {
+                toSelect.appendChild(option);
+            });
+        }
+    </script>
+
+</body>
+</html>

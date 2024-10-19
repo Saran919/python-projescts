@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wordle Game</title>
+    <style>
+        .guess-result {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0;
+        }
+        .letter {
+            font-size: 2rem;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 5px;
+            border: 2px solid black;
+            text-transform: uppercase;
+        }
+        .green { background-color: #6aaa64; }
+        .yellow { background-color: #c9b458; }
+        .grey { background-color: #787c7e; }
+    </style>
+</head>
+<body>
+    <h1>Wordle Game</h1>
+    <p>Guess the 5-letter word:</p>
+
+    <input type="text" id="guessInput" maxlength="5">
+    <button onclick="makeGuess()">Submit Guess</button>
+
+    <div id="feedbackContainer"></div>
+
+    <script>
+        async function makeGuess() {
+            const guessInput = document.getElementById('guessInput');
+            const guess = guessInput.value;
+
+            // Clear the input
+            guessInput.value = '';
+
+            if (guess.length !== 5) {
+                alert('Please enter a 5-letter word!');
+                return;
+            }
+
+            const response = await fetch('/guess', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ guess })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                displayFeedback(data.feedback);
+
+                if (data.won) {
+                    alert('Congratulations! You guessed the correct word.');
+                    guessInput.disabled = true;
+                }
+            } else {
+                const errorData = await response.json();
+                alert(errorData.error);
+            }
+        }
+
+        function displayFeedback(feedback) {
+            const feedbackContainer = document.getElementById('feedbackContainer');
+            const guessResultDiv = document.createElement('div');
+            guessResultDiv.className = 'guess-result';
+
+            feedback.forEach(item => {
+                const letterDiv = document.createElement('div');
+                letterDiv.className = `letter ${item.color}`;
+                letterDiv.textContent = item.letter.toUpperCase();
+                guessResultDiv.appendChild(letterDiv);
+            });
+
+            feedbackContainer.appendChild(guessResultDiv);
+        }
+    </script>
+</body>
+</html>
